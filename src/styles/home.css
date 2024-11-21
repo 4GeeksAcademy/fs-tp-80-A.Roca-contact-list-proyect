@@ -1,0 +1,140 @@
+
+body {
+    background-color: #1b2735;
+    color: #ffffff;
+}
+
+
+.card {
+    background-color: #ffffff;
+    color: #ffffff;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.card-title {
+    color: #1b2735;
+    font-weight: bold;
+}
+
+.card-text {
+    color: #000000;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: #1dcaff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #17a2b8;
+}
+
+.btn-danger {
+    background-color: #ff6b6b;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #881b24;
+}
+
+
+.btn-success {
+    background-color: #10ac84;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #307b3e;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+}
+
+.card h2 {
+    color: #0040ff;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #1747b8;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0d265f;
+}
+
+.navbar {
+    background: #16202c;
+    border: #16202c;
+    border-bottom: #2e3e6e;
+    border-style: solid;
+}
+.navText {
+    text-decoration: none;
+    text-decoration-line: none;
+    color: #ffffff; 
+}
+.formulario {
+    background: #243447;
+    color: #ffffff;
+}
+.alert {
+    background-color: #28a745; 
+    color: #fff; 
+    font-weight: bold;
+    border: 2px solid #218838; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    text-align: center; 
+    margin-top: 20px; 
+    animation: fadeIn 0.5s ease-in-out; 
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.redAlert {
+    background-color: #ff4444; 
+    color: white; 
+    font-weight: bold; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center; 
+    margin-top: 15px;
+    padding: 10px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

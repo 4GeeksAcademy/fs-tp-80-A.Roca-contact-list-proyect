@@ -1,43 +1,93 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			url: 'https://playground.4geeks.com/contact',
+			selected: [],
+			listaDeContactos: [],
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+			seleccionarAccion: (contact) => setStore({ selected: contact }),
 
-				//reset the global store
-				setStore({ demo: demo });
-			}
+
+			crearAgenda: async () => {
+				try {
+					const resp = await fetch(getStore().url + '/agendas/syntakt', {
+						method: 'POST'
+					});
+
+					if (!resp.ok) throw new Error('Error al crear la agenda')
+					getActions().obtenerContacto()
+					return true
+
+				} catch (error) {
+					console.error("Error al crear la agenda", error)
+				}
+			},
+			crearContacto: async (contact) => {
+				try {
+					const resp = await fetch(getStore().url + '/agendas/syntakt/contacts', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify(contact)
+					});
+
+					if (!resp.ok) throw new Error('Error al crear contacto')
+					return getActions().obtenerContacto()
+
+				} catch (error) {
+					console.error("Error al crear el contacto", error)
+				}
+			},
+
+			obtenerContacto: async () => {
+				try {
+					const resp = await fetch(getStore().url + '/agendas/syntakt');
+					if (resp.status === 404) {
+						console.warn("Agenda no encontrada. Creando nueva agenda...");
+						return getActions().crearAgenda();
+					}
+
+					if (!resp.ok) throw new Error("Error al obtener contactos");
+					const data = await resp.json();
+
+					setStore({ listaDeContactos: data });
+					console.log("Datos de contacto obtenidos correctamente:", data);
+					return true;
+
+				} catch (error) {
+					console.error("Error en obtener Contacto:", error);
+				}
+			},
+
+			actualizarContacto: async (id, contact) => {
+				try {
+					const resp = await fetch(getStore().url + '/agendas/syntakt/contacts/' + id, {
+						method: 'PUT',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify(contact)
+					});
+					if (!resp.ok) throw new Error('Error al actualizar contacto')
+					return getActions().obtenerContacto()
+
+				} catch (error) {
+					console.error("Error al acatualizar el contacto", error)
+				}
+			},
+
+			eliminarContacto: async (id) => {
+				try {
+					const resp = await fetch(getStore().url + '/agendas/syntakt/contacts/' + id, {
+						method: 'DELETE'
+					});
+
+					if (!resp.ok) throw new Error('Error al eliminar contacto')
+					return getActions().obtenerContacto()
+
+				} catch (error) {
+					console.error("Error al eliminar contacto", error)
+				}
+			},
 		}
 	};
 };
